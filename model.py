@@ -58,3 +58,12 @@ y = df_merged['class']
 X_median = X.median()
 X = X.fillna(X_median)
 X = X.mask((X.sub(X_median).div(X.std()).abs().gt(3)), other=X_median, axis=1)
+
+# split the data into training, validation, and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.25, random_state=42)
+
+# training of KNN model
+k = 5
+knn = KNeighborsClassifier(n_neighbors=k)
+knn.fit(X_train, y_train)
