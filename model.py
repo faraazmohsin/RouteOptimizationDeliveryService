@@ -67,3 +67,13 @@ X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.
 k = 5
 knn = KNeighborsClassifier(n_neighbors=k)
 knn.fit(X_train, y_train)
+
+# validation
+y_val_pred = knn.predict(X_val)
+val_accuracy = accuracy_score(y_val, y_val_pred)
+print(f"Validation accuracy: {val_accuracy}")
+
+# test
+y_test_pred = knn.predict(X_test)
+test_accuracy = accuracy_score(y_test, y_test_pred)
+print(f"Test accuracy: {test_accuracy}")
