@@ -3,6 +3,12 @@ import zipfile
 import os
 import pandas as pd
 
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+
 zip_path = '/content/drive/MyDrive/rounD-dataset-v1.0.zip'
 
 with zipfile.ZipFile(zip_path, 'r') as zip_ref:
@@ -37,3 +43,18 @@ df_tracksMeta = pd.concat(df_tracksMeta, ignore_index=True, axis=0)
 print(df_recordingMeta.isnull().sum())
 print(df_tracks.isnull().sum())
 print(df_tracksMeta.isnull().sum())
+
+#---------------------------------------------------------------#
+
+# merge the dataframes into one dataframe based on a common column
+df_merged = pd.merge(df_recordingMeta, df_tracks, on='recordingId')
+df_merged = pd.merge(df_merged, df_tracksMeta, on='trackId')
+
+# define X and y, we're defining features and target variable based on columns from dataset
+X = df_merged[['speedLimit', 'xCenter', 'yCenter']]
+y = df_merged['class']
+
+# handle outliers by replacing with median values
+X_median = X.median()
+X = X.fillna(X_median)
+X = X.mask((X.sub(X_median).div(X.std()).abs().gt(3)), other=X_median, axis=1)
