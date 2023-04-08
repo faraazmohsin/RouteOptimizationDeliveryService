@@ -6,5 +6,5 @@
 | ------------- | ------------- |
 | Faraaz Mohsin  | 100659110  |
 | Janajan Jeyabalan  | 100698148  |
-| Hemshika Sultoo  | 100670616  |
+| Hemshikha Sultoo  | 100670616  |
 | Rubbia Pasha  | 100702075  |
